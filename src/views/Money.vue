@@ -30,5 +30,7 @@ export default class Money extends Vue {
 }
 </style>
 <style lang="scss" scoped>
+@import "~@/assets/styles/haples.scss";
+
 
 </style>
