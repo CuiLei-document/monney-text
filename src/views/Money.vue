@@ -3,7 +3,7 @@
     <NumberPads/>
     <Types :xxx="333"/>
     <Notes/>
-    <Tags />
+    <Tags :data-source="tags"/>
   </Layout>
 </template>
 
@@ -20,7 +20,7 @@ import NumberPads from '@/components/NumberPads.vue';
   components: {NumberPads, Types, Notes, Tags, Nav}
 })
 export default class Money extends Vue {
-
+  tags:string[] = ['衣','食','住','行','赌博']
 }
 </script>
 <style lang="scss">
