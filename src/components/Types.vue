@@ -2,29 +2,29 @@
   <div>
     <ul class="types">
       <li :class="type === '-' && 'selected'"
-      @click="selectType('-')">支出</li>
+          @click="selectType('-')">支出
+      </li>
       <li :class="type === '+' && 'selected'"
-      @click="selectType('+')">收入</li>
+          @click="selectType('+')">收入
+      </li>
     </ul>
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import {Component} from 'vue-property-decorator'
+import Vue from 'vue';
+import {Component,Prop} from 'vue-property-decorator';
+
 @Component
-export default  {
-  name:'Types',
-  data(){
-    return{
-      type: '+' // 只能是 + 和 -
+export default class Types extends Vue {
+  type = '-'; // 只能是+和-
+  selectType(type: string) {
+    if (type !== '-' && type !== '+') {
+      throw new Error('type is no');
     }
-  },
-  methods:{
-    selectType(type){
-      this.type = type
-    }
+    this.type = type;
   }
+
 }
 </script>
 
