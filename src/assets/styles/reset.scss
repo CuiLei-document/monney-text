@@ -10,3 +10,10 @@ a{
   text-decoration: none;
   color: inherit;
 }
+button, input{
+  font: inherit;
+}
+//表示去除边框元素颜色
+:focus{
+  outline: none;
+}
