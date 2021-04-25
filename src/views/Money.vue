@@ -27,7 +27,7 @@ const recordList = recordListModel.fetch();
   components: {NumberPads, Types, Notes, Tags, Nav}
 })
 export default class Money extends Vue {
-  tags: string[] = tagList
+  tags = tagList
 
   recordList: RecordItem[] = recordList;
   record: RecordItem = {

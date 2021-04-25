@@ -17,7 +17,7 @@ import Vue from 'vue'
 import {Component, Prop} from 'vue-property-decorator';
 @Component
 export default class Tags extends Vue {
-  @Prop(Array) readonly dataSource: string[]|undefined
+  @Prop() readonly dataSource: string[]|undefined
   selectedTags: string[] = []
   select(tag:string){
     const index = this.selectedTags.indexOf(tag)
