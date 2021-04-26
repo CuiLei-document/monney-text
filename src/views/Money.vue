@@ -2,7 +2,9 @@
   <Layout class-prefix="layout">
     <NumberPads @update:value="onUpdateNumberPads" @submit="saveRecord"/>
     <Types :value.sync="record.types"/>
+    <div class="notes">
     <Notes @update:value="onUpdateNotes" fieldName="备注" placeholder="请输入备注"/>
+    </div>
     <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
   </Layout>
 </template>
@@ -64,6 +66,9 @@ export default class Money extends Vue {
 .layout-content {
   display: flex;
   flex-direction: column-reverse;
+}
+.notes{
+  padding: 12px 0;
 }
 </style>
 <style lang="scss" scoped>
