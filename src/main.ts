@@ -13,7 +13,18 @@ Vue.component('Nav', Nav);
 Vue.component('Layout',Layout)
 Vue.component('Icon',Icon)
 window.tagList = tagListModel.fetch()
-
+window.createTag = (name:string)=>{
+    if(name){
+        const message = tagListModel.create(name)
+        console.log(tagListModel.create);
+        console.log(message);
+        if(message === 'duplicated'){
+            window.alert('失败了')
+        }else if(message === 'success'){
+            window.alert('成功了')
+        }
+    }
+}
 new Vue({
     router,
     store,
