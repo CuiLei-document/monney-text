@@ -1,6 +1,5 @@
 <template>
   <Layout class-prefix="layout">
-    {{record}}
     <NumberPads @update:value="onUpdateNumberPads" @submit="saveRecord"/>
     <Types :value.sync="record.types"/>
     <div class="notes">
@@ -18,17 +17,16 @@ import Tags from '@/components/Tags.vue';
 import Notes from '@/components/Notes.vue';
 import Types from '@/components/Types.vue';
 import NumberPads from '@/components/NumberPads.vue';
-import recordListModel from "@/models/recordListModel"
-
+import store from '@/store/index2';
 
 @Component({
   components: {NumberPads, Types, Notes, Tags, Nav}
 })
 export default class Money extends Vue {
-  tags = window.tagList
+  tags = store.tagList
 
   // eslint-disable-next-line no-undef
-  recordList = window.recordList;
+  recordList = store.recordList;
   // eslint-disable-next-line no-undef
   record: RecordItem = {
     tags: [], notes: '', types: '-', amount: 0, createdAt: new Date()
@@ -50,7 +48,7 @@ export default class Money extends Vue {
   }
 
   saveRecord() {
-    window.createRecord(this.record)
+    store.createRecord(this.record)
     console.log(this.record);
   }
 }
