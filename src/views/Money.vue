@@ -39,6 +39,7 @@ export default class Money extends Vue {
 
   onUpdateTags(value: string[]) {
     this.record.tags = value;
+    console.log(value);
   }
 
   onUpdateNotes(value: string) {
@@ -51,15 +52,13 @@ export default class Money extends Vue {
   }
 
   saveRecord() {
-    const record2:RecordItem = recordListModel.clone(this.record)
-    record2.createdAt = new Date();
-    this.recordList.push(record2);
-    console.log(this.recordList);
+   recordListModel.create(this.record)
+    console.log(this.record);
   }
 
   @Watch('recordList')
   onRecordListChanged() {
-    recordListModel.save(this.recordList);
+    recordListModel.save();
   }
 }
 </script>
