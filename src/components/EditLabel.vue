@@ -1,13 +1,13 @@
 <template>
 <Layout>
   <div class="navBar">
-    <Icon class="leftIcon" name="left"></Icon>
+    <Icon class="leftIcon" name="left" @click.native="goBack"></Icon>
     <span class="title">编辑标签</span>
     <span class="rightIcon"></span>
   </div>
-  <Notes class="from-wrapper" field-name="备注" placeholder="请输入"/>
+··  <Notes :value="tag.name" @update:value="update" class="from-wrapper" field-name="备注" placeholder="请输入"/>
   <div class="button-wrapper">
-    <Button>删除按钮</Button>
+    <Button @click="remove">删除按钮</Button>
   </div>
 </Layout>
 </template>
@@ -22,17 +22,33 @@ import Button from '@/components/Button.vue';
   components: {Button, Notes}
 })
 export default class EditLabel extends Vue {
+  tag?: {id:string, name:string} = undefined
 created(){
   const id = this.$route.params.id
   tagListModel.fetch()
   const tags = tagListModel.data
-  console.log(tags);
   const tag = tags.filter(t =>t.id === id)[0]
   if(tag){
-    console.log(tag);
+    this.tag = tag
+    console.log(this.tag);
   }else{
     this.$router.replace('/404')
   }
+}
+update(name:string){
+    if(this.tag){
+      tagListModel.update(this.tag.id,name)
+    }
+}
+remove(){
+    if(this.tag){
+      if(tagListModel.remove(this.tag.id)){
+        this.$router.back()
+      }
+    }
+}
+goBack(){
+    this.$router.back()
 }
 }
 </script>
@@ -40,7 +56,6 @@ created(){
 <style lang="scss" scoped>
 .navBar{
   background: white;
-  border: 1px solid red;
   text-align: center;
   font-size: 16px;
   padding: 12px 16px;
@@ -49,12 +64,10 @@ created(){
   justify-content: space-between;
   >.title{}
   >.leftIcon{
-    border: 1px solid green;
     width: 24px;
     height: 24px;
   }
   >.rightIcon{
-    border: 1px solid blue;
     width:24px;
     height: 24px;
   }
