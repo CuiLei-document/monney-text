@@ -32,7 +32,9 @@ const recordList = recordListModel.fetch();
 export default class Money extends Vue {
   tags = tagList
 
+  // eslint-disable-next-line no-undef
   recordList: RecordItem[] = recordList;
+  // eslint-disable-next-line no-undef
   record: RecordItem = {
     tags: [], notes: '', types: '-', amount: 0, createdAt: new Date()
   };
