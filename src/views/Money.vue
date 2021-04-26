@@ -22,15 +22,13 @@ import recordListModel from "@/models/recordListModel"
 import tagListModel from '@/models/tagListModel';
 
 
-const tagList = tagListModel.fetch()
-console.log(tagList);
 const recordList = recordListModel.fetch();
 
 @Component({
   components: {NumberPads, Types, Notes, Tags, Nav}
 })
 export default class Money extends Vue {
-  tags = tagList
+  tags = window.tagList
 
   // eslint-disable-next-line no-undef
   recordList: RecordItem[] = recordList;

@@ -19,12 +19,12 @@ import {Component} from 'vue-property-decorator'
 import Nav from '@/components/Nav.vue';
 import tagListModel from '@/models/tagListModel';
 import Button from '@/components/Button.vue';
-tagListModel.fetch()
+
 @Component({
   components: {Button, Nav}
 })
 export default class Labels extends Vue {
-  tags = tagListModel.data
+  tags = window.tagList
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
   createTag(){
     const name = window.prompt('请输入标签名')
