@@ -19,7 +19,6 @@ import Notes from '@/components/Notes.vue';
 import Types from '@/components/Types.vue';
 import NumberPads from '@/components/NumberPads.vue';
 import recordListModel from "@/models/recordListModel"
-import tagListModel from '@/models/tagListModel';
 
 
 const recordList = recordListModel.fetch();
