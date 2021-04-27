@@ -18,21 +18,24 @@ import Vue from 'vue'
 import {Component} from 'vue-property-decorator'
 import Nav from '@/components/Nav.vue';
 import Button from '@/components/Button.vue';
-import store from '@/store/index2';
-
+import store from "@/store/index"
 @Component({
   components: {Button, Nav},
   computed:{
-
+      tags(){
+        return store.state.tagList
+      }
   }
 })
 export default class Labels extends Vue {
-  tags = store.tagList
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  created(){
+    this.$store.commit('fetchTag')
+  }
   createTag(){
     const name = window.prompt('请输入标签名')
     if(name){
-      store.createTag(name)
+      this.$store.commit('createTag',name)
 
     }
   }

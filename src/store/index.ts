@@ -18,6 +18,7 @@ const store =  new Vuex.Store({
     },
     createTag (state,name){
       const names = state.tagList.map(item => item.name)
+      console.log(names);
       if (names.indexOf(name) >= 0) {
         window.alert('失败了')
         return 'duplicated';
