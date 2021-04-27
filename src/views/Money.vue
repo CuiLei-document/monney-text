@@ -5,7 +5,7 @@
     <div class="notes">
     <Notes @update:value="onUpdateNotes" fieldName="备注" placeholder="请输入备注"/>
     </div>
-    <Tags :data-source.sync="tags" @update:value="onUpdateTags"/>
+    <Tags />
   </Layout>
 </template>
 
@@ -17,26 +17,26 @@ import Tags from '@/components/Tags.vue';
 import Notes from '@/components/Notes.vue';
 import Types from '@/components/Types.vue';
 import NumberPads from '@/components/NumberPads.vue';
-import store from '@/store/index2';
+import store from '@/store/index.ts'
 
 @Component({
-  components: {NumberPads, Types, Notes, Tags, Nav}
+  components: {NumberPads, Types, Notes, Tags, Nav},
+  computed:{
+    recordList(){
+     return store.state.recordList;
+    },
+  }
 })
 export default class Money extends Vue {
-  tags = store.tagList
 
   // eslint-disable-next-line no-undef
-  recordList = store.recordList;
   // eslint-disable-next-line no-undef
   record: RecordItem = {
     tags: [], notes: '', types: '-', amount: 0, createdAt: new Date()
   };
-
-  onUpdateTags(value: string[]) {
-    console.log(this.recordList);
-    this.record.tags = value;
-    console.log(value);
-  }
+created(){
+  this.$store.commit('fetchRecords')
+}
 
   onUpdateNotes(value: string) {
     this.record.notes = value;
@@ -48,8 +48,7 @@ export default class Money extends Vue {
   }
 
   saveRecord() {
-    store.createRecord(this.record)
-    console.log(this.record);
+    this.$store.commit('createRecord',this.record)
   }
 }
 </script>

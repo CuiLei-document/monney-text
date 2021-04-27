@@ -21,7 +21,10 @@ import Button from '@/components/Button.vue';
 import store from '@/store/index2';
 
 @Component({
-  components: {Button, Nav}
+  components: {Button, Nav},
+  computed:{
+
+  }
 })
 export default class Labels extends Vue {
   tags = store.tagList

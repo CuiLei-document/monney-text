@@ -4,7 +4,7 @@ const localStorageKeyName = 'tagList';
 const tagStore =  {
     // tag store
     tagList: [] as Tag[] ,
-    fetchList() {
+    fetchTag() {
         this.tagList = JSON.parse(window.localStorage.getItem(localStorageKeyName) || '[]');
         return this.tagList;
     },
@@ -55,6 +55,6 @@ const tagStore =  {
         window.localStorage.setItem(localStorageKeyName, JSON.stringify(this.tagList));
     }
 }
-tagStore.fetchList()
+tagStore.fetchTag()
 
 export default tagStore
