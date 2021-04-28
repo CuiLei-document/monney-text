@@ -3,7 +3,12 @@ type RecordItem = {
     notes: string
     types: string
     amount: number
-    createdAt: Date | undefined
+    createdAt?: string
+}
+type RootState = {
+    recordList:  RecordItem[],
+    tagList:  Tag[]
+    currentTag: Tag | undefined
 }
 type Tag = {
     id: string
@@ -18,6 +23,3 @@ type TagListModel = {
     remove: (id: string) => boolean
 }
 
-interface Window {
-
-}

@@ -30,7 +30,7 @@ export default class Money extends Vue {
   // eslint-disable-next-line no-undef
   // eslint-disable-next-line no-undef
   record: RecordItem = {
-    tags: [], notes: '', types: '-', amount: 0, createdAt: new Date()
+    tags: [], notes: '', types: '-', amount: 0, createdAt: new Date().toISOString()
   };
  typeList = typeList
 created(){
@@ -51,7 +51,7 @@ created(){
   }
 }
 </script>
-<style lang="scss">
+<style lang="scss" >
 .layout-content {
   display: flex;
   flex-direction: column-reverse;
