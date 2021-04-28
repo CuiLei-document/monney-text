@@ -1,9 +1,8 @@
 <template>
-  <ul class="tabs">
-    <li v-for="item in dataSource" :key="item.value"
-        :class="classList(item)"
-    @click="select(item)"
-    >{{item.text}}</li>
+  <ul class="tabs" :class="{[classPrefix+'-tabs']: classPrefix}">
+    <li  v-for="item in dataSource" :key="item.value" class="tabs-item"
+        :class="liClass(item)" @click="select(item)">{{item.text}}
+    </li>
   </ul>
 </template>
 
@@ -11,20 +10,23 @@
 import Vue from 'vue';
 import {Component, Prop} from 'vue-property-decorator';
 
-type DateSourceItem = {
+type DataSourceItem = {
   text:string,
   value:string
 }
 @Component
 export default class Tabs extends Vue {
-  @Prop({required:true,type:Array}) dataSource!: DateSourceItem[]
+  @Prop({required:true,type:Array}) dataSource!: DataSourceItem[]
   @Prop(String) readonly value!: string // 不要管我 我就是 string类型
   @Prop(String) classPrefix?: string;
-  select(item:DateSourceItem){
+  select(item:DataSourceItem){
     this.$emit('update:value',item.value)
   }
-  classList(item:DateSourceItem){
-    return {[this.classPrefix +'-item']:this.classPrefix,selected: item.value===this.value}
+  liClass(item: DataSourceItem) {
+    return {
+      [this.classPrefix + '-tabs-item']: this.classPrefix,
+      selected: item.value === this.value
+    };
   }
 }
 </script>
@@ -35,8 +37,7 @@ export default class Tabs extends Vue {
   display: flex;
   text-align: center;
   font-size: 24px;
-
-  > li {
+  &-item {
     width: 50%;
     height: 64px;
     display: flex;

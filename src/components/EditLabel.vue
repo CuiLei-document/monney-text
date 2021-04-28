@@ -15,7 +15,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import {Component} from 'vue-property-decorator'
-import Notes from '@/components/Notes.vue';
+import Notes from '@/components/Money/Notes.vue';
 import Button from '@/components/Button.vue';
 import store from '@/store/index2';
 @Component({

@@ -1,7 +1,7 @@
 <template>
   <Layout>
     <Tabs :data-source="typeList" :value.sync="type" class-prefix="tab"/>
-    <Tabs :data-source="intervalList" :value.sync="interval" />
+    <Tabs class-prefix="interval" :data-source="intervalList" :value.sync="interval" />
     {{interval}}
   </Layout>
 </template>
@@ -10,13 +10,12 @@
 import Vue from 'vue'
 import {Component} from 'vue-property-decorator'
 import Nav from '@/components/Nav.vue';
-import Types from '@/components/Types.vue';
 import Tabs from '@/components/Tabs.vue';
-import Tags from '@/components/Tags.vue';
+import Tags from '@/components/Money/Tags.vue';
 import intervalList from '@/constants/intervalList';
 import typeList from '@/constants/typeList';
 @Component({
-  components: {Tags, Tabs, Types, Nav},
+  components: {Tags, Tabs, Nav},
 
 })
 export default class statistics extends Vue {
@@ -28,7 +27,7 @@ export default class statistics extends Vue {
 </script>
 
 <style lang="scss" scoped>
- ::v-deep .tab-item {
+ ::v-deep .tab-tabs-item {
   background: white;
   &.selected{
     background: #c4c4c4;
@@ -37,4 +36,7 @@ export default class statistics extends Vue {
     }
    }
 }
+ ::v-deep .interval-tabs-item{
+   height: 48px;
+ }
 </style>

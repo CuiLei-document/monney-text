@@ -13,16 +13,15 @@
 import Vue from 'vue';
 import {Component, Watch} from 'vue-property-decorator';
 import Nav from '@/components/Nav.vue';
-import Tags from '@/components/Tags.vue';
-import Notes from '@/components/Notes.vue';
-import Types from '@/components/Types.vue';
-import NumberPads from '@/components/NumberPads.vue';
+import Tags from '@/components/Money/Tags.vue';
+import Notes from '@/components/Money/Notes.vue';
+import NumberPads from '@/components/Money/NumberPads.vue';
 import store from '@/store/index.ts'
 import Tabs from '@/components/Tabs.vue';
 import typeList from '@/constants/typeList';
 
 @Component({
-  components: {Tabs, NumberPads, Types, Notes, Tags, Nav}
+  components: {Tabs, NumberPads,  Notes, Tags, Nav}
 })
 export default class Money extends Vue {
  get recordList(){
