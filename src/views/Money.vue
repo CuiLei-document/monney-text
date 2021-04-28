@@ -2,6 +2,7 @@
   <Layout class-prefix="layout">
     <NumberPads @update:value="onUpdateNumberPads" @submit="saveRecord"/>
     <Types :value.sync="record.types"/>
+
     <div class="notes">
     <Notes @update:value="onUpdateNotes" fieldName="备注" placeholder="请输入备注"/>
     </div>
@@ -18,17 +19,15 @@ import Notes from '@/components/Notes.vue';
 import Types from '@/components/Types.vue';
 import NumberPads from '@/components/NumberPads.vue';
 import store from '@/store/index.ts'
+import Tabs from '@/components/Tabs.vue';
 
 @Component({
-  components: {NumberPads, Types, Notes, Tags, Nav},
-  computed:{
-    recordList(){
-     return store.state.recordList;
-    },
-  }
+  components: {Tabs, NumberPads, Types, Notes, Tags, Nav}
 })
 export default class Money extends Vue {
-
+ get recordList(){
+    return store.state.recordList;
+  }
   // eslint-disable-next-line no-undef
   // eslint-disable-next-line no-undef
   record: RecordItem = {

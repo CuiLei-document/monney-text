@@ -21,14 +21,13 @@ import Button from '@/components/Button.vue';
 import store from "@/store/index"
 @Component({
   components: {Button, Nav},
-  computed:{
-      tags(){
-        return store.state.tagList
-      }
-  }
+
 })
 export default class Labels extends Vue {
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+  get tags(){
+    return store.state.tagList
+  }
   created(){
     this.$store.commit('fetchTag')
   }
