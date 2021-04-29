@@ -1,9 +1,11 @@
 <template>
   <Layout>
     <Tabs :data-source="typeList" :value.sync="type" class-prefix="tab"/>
-    <ol>
+    <ol v-if="groupedList.length > 0">
       <li v-for="(group,index) in groupedList" :key="index">
-        <h3 class="title">{{ beautify(group.title) }}</h3>
+        <h3 class="title">{{ beautify(group.title) }}
+          <span>￥{{ group.total }}</span>
+        </h3>
         <ol>
           <li v-for="item in group.items" :key="item.id" class="record">
             <span>{{ tagString(item.tags) }}</span>
@@ -13,6 +15,9 @@
         </ol>
       </li>
     </ol>
+    <div v-else class="noResult">
+      不存在
+    </div>
   </Layout>
 </template>
 
@@ -34,7 +39,7 @@ import clone from '@/lib/clone';
 export default class statistics extends Vue {
   // eslint-disable-next-line no-undef
   tagString(tags: Tag[]) {
-    return tags.length === 0 ? '无' : tags.join(',');
+    return tags.length === 0 ? '无' : tags.map(t => t.name).join('，');
   }
 
   beautify(string: string) {
@@ -58,17 +63,20 @@ export default class statistics extends Vue {
 
   get groupedList() {
     const {recordList} = this;
-    if (recordList.length === 0) {
-      return [];
-    }
+
 
     // eslint-disable-next-line no-undef
-    const newList = clone(recordList)
+    const newList = clone(recordList as RecordItem[])
         .filter(r => r.types === this.type)
         .sort((a, b) => dayjs(b.createdAt).valueOf() - dayjs(a.createdAt).valueOf());
+    if (newList.length === 0) {
+      return [] as Result;
+    }
+    // eslint-disable-next-line no-undef
+    type Result = { title: string, items: RecordItem[],total: number|undefined }[]
+
     const result = [{title: dayjs(newList[0].createdAt).format('YYYY-MM-DD'), items: [newList[0]]}];
     // eslint-disable-next-line no-undef
-    // type Result = { title: string, total?: number, items: RecordItem[] }[]
     for (let i = 1; i < newList.length; i++) {
       const current = newList[i];
       const last = result[result.length - 1];
@@ -78,6 +86,14 @@ export default class statistics extends Vue {
         result.push({title: dayjs(current.createdAt).format('YYYY-MM-DD'), items: [current]});
       }
     }
+    result.map(group => {
+      group.total = group.items.reduce((sum, item) => {
+        console.log('sum');
+        console.log(sum);
+        console.log(item);
+        return sum + item.amount;
+      }, 0);
+    });
     return result;
   }
 
@@ -90,6 +106,11 @@ export default class statistics extends Vue {
 }
 </script>
 <style lang="scss" scoped>
+.noResult{
+  font-size: 22px;
+  padding: 8px 16px;
+  text-align: center;
+}
 %item {
   padding: 8px 16px;
   line-height: 24px;
@@ -112,8 +133,7 @@ export default class statistics extends Vue {
   margin-left: 16px;
   color: #999;
 }
-</style>
-<style lang="scss" scoped>
+
 ::v-deep .tab-tabs-item {
   background: white;
 

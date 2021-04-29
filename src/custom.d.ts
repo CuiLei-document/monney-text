@@ -9,6 +9,7 @@ type RootState = {
     recordList: RecordItem[];
     tagList: Tag[];
     currentTag: Tag | undefined;
+    createRecordError:  Error | null;
 }
 type Tag = {
     id: string;

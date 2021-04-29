@@ -3,9 +3,9 @@
     <NumberPads @update:value="onUpdateNumberPads" @submit="saveRecord"/>
     <Tabs :data-source="typeList" :value.sync="record.types"/>
     <div class="notes">
-    <Notes @update:value="onUpdateNotes" fieldName="备注" placeholder="请输入备注"/>
+    <Notes  fieldName="备注" placeholder="请输入备注" :value.sync="record.notes"/>
     </div>
-    <Tags />
+    <Tags @update:value="record.tags = $event"/>
   </Layout>
 </template>
 
@@ -28,9 +28,8 @@ export default class Money extends Vue {
     return store.state.recordList;
   }
   // eslint-disable-next-line no-undef
-  // eslint-disable-next-line no-undef
   record: RecordItem = {
-    tags: [], notes: '', types: '-', amount: 0, createdAt: new Date().toISOString()
+    tags: [], notes: '', types: '-', amount: 0
   };
  typeList = typeList
 created(){
@@ -47,7 +46,15 @@ created(){
   }
 
   saveRecord() {
+   if(!this.record.tags || this.record.tags.length === 0){
+     return window.alert('请选择一个标签')
+
+   }
     this.$store.commit('createRecord',this.record)
+    if(this.$store.state.createRecordError === null){
+      window.alert('已保存')
+      this.record.notes = ''
+    }
   }
 }
 </script>

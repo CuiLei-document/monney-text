@@ -5,14 +5,10 @@ import createId from '@/lib/createId';
 import router from '@/router';
 
 Vue.use(Vuex)
-type RootState = {
-  recordList:  RecordItem[],
-  tagList:  Tag[]
-  currentTag: Tag | undefined
-}
 const store =  new Vuex.Store({
   state: {
     recordList: [],
+    createRecordError: null,
     tagList:  [],
     currentTag: undefined
   } as RootState,
@@ -59,11 +55,15 @@ const store =  new Vuex.Store({
     },
     fetchTag(state) {
       state.tagList = JSON.parse(window.localStorage.getItem('tagList') || '[]');
-
+      if(!state.tagList || state.tagList.length ===0){
+        store.commit('createTag','衣')
+        store.commit('createTag','食')
+        store.commit('createTag','住')
+        store.commit('createTag','行')
+      }
     },
     createTag (state,name){
       const names = state.tagList.map(item => item.name)
-      console.log(names);
       if (names.indexOf(name) >= 0) {
         window.alert('失败了')
         return 'duplicated';
@@ -71,7 +71,6 @@ const store =  new Vuex.Store({
       const id = createId().toString()
       state.tagList.push({id,name:name});
       store.commit('saveTag')
-      window.alert('成功了')
       return  'success';
     },
     saveTag(state) {
@@ -81,14 +80,13 @@ const store =  new Vuex.Store({
     fetchRecords(state) {
       state.recordList =  JSON.parse(window.localStorage.getItem('recordList') || '[]') as RecordItem[];
     },
-    createRecord(state,record){
+    createRecord(state,record:RecordItem){
       const record2:RecordItem = clone(record)
       record2.createdAt = new Date().toISOString();
       state.recordList.push(record2); // this.recordList && this.recordList.push(record2)
       // recordStore.saveRecords()
       store.commit('saveRecords')
-      console.log('state.recordList');
-      console.log(state.recordList);
+
     },
     saveRecords(state) {
       window.localStorage.setItem('recordList', JSON.stringify(state.recordList));
